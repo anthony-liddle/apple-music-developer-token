@@ -1,7 +1,8 @@
 #!/usr/bin/env node
+import { realpathSync } from 'node:fs';
 import { readFile as fsReadFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import { decodeJwt } from 'jose';
 import { pemFromBase64 } from '@/pem.js';
@@ -207,12 +208,26 @@ function readVersion(): string {
   return pkg.version;
 }
 
+function isMainModule(invokedPath: string): boolean {
+  try {
+    return (
+      realpathSync(invokedPath) === realpathSync(fileURLToPath(import.meta.url))
+    );
+  } catch {
+    return false;
+  }
+}
+
 // Run only when invoked as the executable, not when imported by tests.
+//
+// We compare real paths on both sides. When the published bin runs through its
+// installed symlink, process.argv[1] is the symlink while import.meta.url is
+// already symlink resolved, so a plain string compare never matches and the
+// CLI would silently do nothing. realpathSync collapses both the symlink and
+// the macOS /private normalization, so the bin and `node dist/cli.js` agree,
+// while a test importing this module (a different real path) still does not.
 const invokedPath = process.argv[1];
-if (
-  invokedPath !== undefined &&
-  import.meta.url === pathToFileURL(invokedPath).href
-) {
+if (invokedPath !== undefined && isMainModule(invokedPath)) {
   run(process.argv.slice(2), {
     stdout: (text) => process.stdout.write(text),
     stderr: (text) => process.stderr.write(text),
