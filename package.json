@@ -1,0 +1,74 @@
+{
+  "name": "apple-music-developer-token",
+  "version": "0.1.0",
+  "description": "Sign short-lived Apple Music API developer tokens (ES256 JWTs) from a .p8 private key. Library plus CLI.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Anthony Liddle <anthony@anthonyliddle.dev>",
+  "homepage": "https://github.com/anthony-liddle/apple-music-developer-token#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anthony-liddle/apple-music-developer-token.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anthony-liddle/apple-music-developer-token/issues"
+  },
+  "keywords": [
+    "apple-music",
+    "musickit",
+    "developer-token",
+    "jwt",
+    "es256",
+    "p8"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "apple-music-developer-token": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check:exports": "attw --pack . --profile esm-only",
+    "check:publish": "publint",
+    "prepublishOnly": "pnpm run test && pnpm run typecheck && pnpm run build && pnpm run check:publish && pnpm run check:exports"
+  },
+  "dependencies": {
+    "jose": "^6.1.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
+    "@eslint/js": "^9.20.0",
+    "@types/node": "^22.15.0",
+    "eslint": "^9.20.0",
+    "eslint-config-prettier": "^10.0.0",
+    "prettier": "^3.5.0",
+    "publint": "^0.3.0",
+    "tsdown": "^0.15.0",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.24.0",
+    "vitest": "^3.0.0"
+  }
+}
