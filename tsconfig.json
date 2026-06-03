@@ -20,7 +20,9 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 
-    "baseUrl": ".",
+    // No baseUrl: TypeScript 6 deprecates it, and `paths` resolves relative to
+    // this file's directory without it. The bundler alias is set separately in
+    // tsdown.config.ts and vitest.config.ts.
     "paths": {
       "@/*": ["./src/*"]
     }
