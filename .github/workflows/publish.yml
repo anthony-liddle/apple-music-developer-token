@@ -23,6 +23,9 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # Must match the environment set on the npm trusted publisher, or the OIDC
+    # token exchange fails with "package not found".
+    environment: npm
     steps:
       - uses: actions/checkout@v5
 
