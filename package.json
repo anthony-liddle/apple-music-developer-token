@@ -32,7 +32,7 @@
     }
   },
   "bin": {
-    "apple-music-developer-token": "./dist/cli.js"
+    "apple-music-developer-token": "dist/cli.js"
   },
   "files": [
     "dist"
