@@ -44,4 +44,4 @@ jobs:
 
       # prepublishOnly reruns tests, typecheck, build, and the publish
       # validators as a final gate. Provenance is implied by the OIDC flow.
-      - run: npm publish --access public --loglevel verbose
+      - run: npm publish --access public
