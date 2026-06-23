@@ -28,21 +28,22 @@ jobs:
 
       - uses: pnpm/action-setup@v4
 
-      # No dependency cache on a release build, and no GitHub environment: the
-      # trusted publisher on npmjs.com is configured without one, and the OIDC
-      # claims have to match it exactly.
+      # No dependency cache on a release build. Note there is no registry-url:
+      # that option makes setup-node write a token based .npmrc, and once npm
+      # sees a configured token it uses it instead of OIDC. Leaving it out keeps
+      # the trusted publishing path clean.
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-          registry-url: https://registry.npmjs.org
 
       # Trusted publishing needs npm 11.5.1 or newer, which is ahead of the
       # version bundled with Node 22.
       - run: npm install -g npm@latest
+      - run: npm --version
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
 
       # prepublishOnly reruns tests, typecheck, build, and the publish
-      # validators as a final gate. provenance is implied by the OIDC flow.
+      # validators as a final gate. Provenance is implied by the OIDC flow.
       - run: npm publish --access public
