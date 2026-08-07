@@ -1,5 +1,6 @@
 # apple-music-developer-token
 
+[![npm](https://img.shields.io/npm/v/apple-music-developer-token.svg)](https://www.npmjs.com/package/apple-music-developer-token)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6.svg)](https://www.typescriptlang.org/)
 [![Node](https://img.shields.io/badge/node-%3E%3D22-339933.svg)](https://nodejs.org/)
@@ -62,6 +63,8 @@ developer token gets you to the door, not through it.
 pnpm add apple-music-developer-token
 ```
 
+Published on npm as
+[`apple-music-developer-token`](https://www.npmjs.com/package/apple-music-developer-token).
 Node 22 or newer, ESM only. There is no CommonJS build.
 
 ## Credentials
